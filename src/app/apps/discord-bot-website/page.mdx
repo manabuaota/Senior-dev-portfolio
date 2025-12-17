@@ -1,0 +1,102 @@
+import { AppSolution, Border, Container, FadeIn, FadeInStagger, Section } from '@/components';
+import Image from 'next/image';
+import { discordBotWebsite } from '../../../../public/projects';
+
+export const appData = {
+  industry: 'Discord Bot Landing Page',
+  title: 'Discord Bot Website',
+  description: 'A modern landing page for promoting a Discord bot, with sections for features, commands, stats and call-to-action buttons.',
+  image: discordBotWebsite,
+  date: '2024-11',
+  service: 'Marketing Website',
+  url: 'https://github.com/manabuaota/DiscordBot-Website',
+  pathname: '/apps/discord-bot-website',
+  framework: 'html',
+};
+
+export const sections = [
+  { index: 0, title: 'About', id: 'about' },
+  { index: 1, title: 'Features', id: 'features' },
+  { index: 2, title: 'Solution', id: 'solution' },
+  { index: 3, title: 'Technologies', id: 'technologies' },
+];
+
+export const metadata = {
+  title: `${appData.title}`,
+  description: appData.description,
+};
+
+export const technologies = [
+  { name: 'HTML5', image: '/logos/html5-logo.png' },
+  { name: 'CSS3', image: '/logos/css-logo.png' },
+  { name: 'JavaScript', image: '/logos/js-logo.png' },
+];
+
+<Container>
+
+<Border className="my-8" />
+
+  <Section id="about">
+    ## About
+
+    This project is a Discord bot marketing website that presents the bot, its core features, and key statistics in a clean one-page layout.
+
+    The hero section highlights the bot, followed by feature cards describing commands, buttons and security. The layout is inspired by modern SaaS and Discord bot landing pages.
+
+  </Section>
+
+<Border className="my-8" />
+
+  <Section id="features">
+    ## Features
+
+    - **Hero Section** with bot branding, avatar and main call-to-action
+    - **Feature Grid** describing commands, reaction roles, moderation and more
+    - **Stats Section** for showing guilds, users and uptime
+    - **Call-to-Action Buttons** to invite the bot or join the support server
+
+  </Section>
+
+<Border className="my-8" />
+
+<Section id="solution">
+
+## Solution
+
+<AppSolution image="discord-bot-website.png" href={appData.url}>
+
+The layout is built as a static marketing page using semantic HTML, modern CSS and a bit of JavaScript for interactivity.
+
+The design focuses on quick readability and clear calls to action so server owners can understand what the bot offers and invite it in a few clicks.
+
+</AppSolution>
+
+</Section>
+
+<Border className="my-8" />
+
+<Section id="technologies">
+
+## Technologies
+
+<FadeInStagger className="flex gap-4 mt-6 flex-wrap" faster once>
+  {technologies.map((tech) => (
+    <FadeIn key={tech.name}>
+      <div className="mt-auto">
+        <Image
+          src={tech.image}
+          className="object-contain rounded-md m-auto"
+          alt=""
+          height={64}
+          width={64}
+          style={{ width: 64, height: 64 }}
+        />
+        <h4 className="text-sm font-semibold tracking-tight text-[#525df3] text-center bg-white rounded-full w-min px-2 m-2 mx-auto">{tech.name}</h4>
+      </div>
+    </FadeIn>
+  ))}
+</FadeInStagger>
+
+</Section>
+
+</Container>

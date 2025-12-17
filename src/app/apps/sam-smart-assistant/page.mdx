@@ -1,0 +1,155 @@
+import { AppSolution, Border, Button, Container, FadeIn, FadeInStagger, Section } from '@/components';
+import Image from 'next/image';
+import { samSmartAssistant } from '../../../../public/projects'
+
+export const appData = {
+  industry: 'Mobile App',
+  title: 'SAM Smart Assistant Mate',
+  description: 'AI-powered personal assistant that utilizes advanced audio recording and text-to-speech technology, integrating ChatGPT and GPT-4 for a seamless, hands-free experience.',
+  image: samSmartAssistant,
+  date: '2023-11',
+  service: 'Mobile App (Android)',
+  url: 'https://apkpure.com/sam-smart-assistant-mate/com.abarri.sammobile?utm_source',
+  pathname: '/apps/sam-smart-assistant',
+  framework: 'react-native',
+};
+
+export const sections = [
+  { index: 0, title: 'About', id: 'about' },
+  { index: 1, title: 'Features', id: 'features' },
+  { index: 2, title: 'Solution', id: 'solution' },
+  { index: 3, title: 'Technologies', id: 'technologies' },
+];
+
+export const metadata = {
+  title: `${appData.title}`,
+  description: appData.description,
+};
+
+export const technologies = [
+  {
+    name: 'Kotlin',
+    image: '/logos/kotlin-logo.png',
+  },
+  {
+    name: 'Java',
+    image: '/logos/java-logo.png',
+  },
+  {
+    name: 'Android Studio',
+    image: '/logos/android-studio-logo.png',
+  },
+  {
+    name: 'Android SDK',
+    image: '/logos/android-sdk-logo.png',
+  },
+  {
+    name: 'Gradle',
+    image: '/logos/gradle-logo.png',
+  },
+  {
+    name: 'Material Design',
+    image: '/logos/material-design-logo.png',
+  },
+  {
+    name: 'Retrofit',
+    image: '/logos/retrofit-logo.png',
+  },
+  {
+    name: 'OkHttp',
+    image: '/logos/okhttp-logo.png',
+  },
+  {
+    name: 'RxJava',
+    image: '/logos/rxjava-logo.png',
+  },
+  {
+    name: 'Dagger Hilt',
+    image: '/logos/dagger-hilt-logo.png',
+  },
+  {
+    name: 'MVVM',
+    image: '/logos/mvvm-logo.png',
+  },
+];
+
+<Container>
+
+<Border className="my-8" />
+
+  <Section id="about">
+    ## About
+
+    SAM (Smart Assistant Mate) is an AI-powered personal assistant application designed to provide a seamless, hands-free experience. The app integrates advanced audio recording capabilities with text-to-speech technology, connecting to powerful AI models like ChatGPT and GPT-4 to deliver intelligent voice interactions.
+
+    SAM serves as your vocal AI assistant buddy, making it easy to interact with AI through natural voice commands.
+
+  </Section>
+
+<Border className="my-8" />
+
+  <Section id="features">
+    ## Features
+
+    - **Voice Interaction**: Hands-free voice commands and responses
+    
+    - **AI Integration**: Powered by ChatGPT and GPT-4 for intelligent conversations
+    
+    - **Text-to-Speech**: Advanced TTS technology for natural voice responses
+    
+    - **Audio Recording**: High-quality audio recording for voice input
+    
+    - **Smart Assistant**: Personal assistant functionality for daily tasks
+    
+    - **Seamless Experience**: Smooth, intuitive user interface
+    
+    - **Offline Capabilities**: Some features work without constant internet connection
+
+  </Section>
+
+<Border className="my-8" />
+
+<Section id="solution">
+
+## Solution
+
+<AppSolution image='sam-smart-assistant.png' href={appData.url}>
+
+SAM Smart Assistant Mate is built using modern Android development technologies. The app uses Kotlin as the primary programming language and follows the MVVM architecture pattern for maintainable code structure.
+
+Dagger Hilt provides dependency injection, while Retrofit and OkHttp handle API communication with AI services. RxJava manages reactive programming patterns for smooth data flow. The app implements Material Design principles for a polished user experience and integrates advanced audio processing capabilities for voice interactions.
+
+</AppSolution>
+
+</Section>
+
+<Border className="my-8" />
+
+<Section id="technologies">
+
+## Technologies
+
+<FadeInStagger className="flex gap-4 mt-6 flex-wrap" faster once>
+  {technologies.map((tech) => (
+    <FadeIn key={tech.name}>
+      <div className="mt-auto">
+        <Image
+          src={tech.image}
+          className="object-contain rounded-md m-auto"
+          alt=""
+          height={64}
+          width={64}
+          style={{
+            width: 64,
+            height: 64,
+          }}
+        />
+        <h4 className="text-sm font-semibold tracking-tight text-[#525df3] text-center bg-white rounded-full w-min px-2 m-2 mx-auto">{tech.name}</h4>
+      </div>
+    </FadeIn>
+  ))}
+</FadeInStagger>
+
+</Section>
+
+</Container>

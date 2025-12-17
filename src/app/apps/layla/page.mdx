@@ -1,0 +1,151 @@
+import { AppSolution, Border, Button, Container, FadeIn, FadeInStagger, Section } from '@/components';
+import Image from 'next/image';
+import { laylaIos } from '../../../../public/projects'
+
+export const appData = {
+  industry: 'Mobile App',
+  title: 'Layla',
+  description: 'Private AI chatbot that operates directly on your device without requiring an internet connection. Offline AI with LLMs and Stable Diffusion models.',
+  image: laylaIos,
+  date: '2024-01',
+  service: 'Mobile App (iOS)',
+  url: 'https://apps.apple.com/id/app/layla/id6456886656',
+  pathname: '/apps/layla',
+  framework: 'react-native',
+};
+
+export const sections = [
+  { index: 0, title: 'About', id: 'about' },
+  { index: 1, title: 'Features', id: 'features' },
+  { index: 2, title: 'Solution', id: 'solution' },
+  { index: 3, title: 'Technologies', id: 'technologies' },
+];
+
+export const metadata = {
+  title: `${appData.title}`,
+  description: appData.description,
+};
+
+export const technologies = [
+  {
+    name: 'Kotlin',
+    image: '/logos/kotlin-logo.png',
+  },
+  {
+    name: 'Java',
+    image: '/logos/java-logo.png',
+  },
+  {
+    name: 'Android Studio',
+    image: '/logos/android-studio-logo.png',
+  },
+  {
+    name: 'Android SDK',
+    image: '/logos/android-sdk-logo.png',
+  },
+  {
+    name: 'Jetpack Compose',
+    image: '/logos/jetpack-compose-logo.png',
+  },
+  {
+    name: 'Material Design',
+    image: '/logos/material-design-logo.png',
+  },
+  {
+    name: 'Room Database',
+    image: '/logos/room-database-logo.png',
+  },
+  {
+    name: 'Coroutines',
+    image: '/logos/coroutines-logo.png',
+  },
+  {
+    name: 'MVVM',
+    image: '/logos/mvvm-logo.png',
+  },
+];
+
+<Container>
+
+<Border className="my-8" />
+
+  <Section id="about">
+    ## About
+
+    Layla is a groundbreaking personal AI that resides directly on your phone or device. No internet connection required, no censorship, complete privacy. No information leaves your device.
+
+    The app downloads a 4GB Large Language Model (LLM) after it starts for the first time, enabling fully offline AI capabilities.
+
+  </Section>
+
+<Border className="my-8" />
+
+  <Section id="features">
+    ## Features
+
+    - **General Knowledge**: Ask Layla about anything under the sun, she will give you an informed response
+    
+    - **Multiple Personalities**: Choose from many personalities - from cute to serious to bubbly to stoic
+    
+    - **Memory**: Tell Layla about yourself, she'll remember you
+    
+    - **Personalisation**: Create your own characters if none of the presets fit your style
+    
+    - **Voices**: Over 100+ different voices to choose from for your characters
+    
+    - **Roleplay**: Engage in roleplay with multiple characters
+    
+    - **Task Scheduling**: Basic task scheduling/reminder features - just talk to Layla normally
+    
+    - **Custom AI**: Load custom GGUF models that fit your needs
+    
+    - **Free Plugins**: Additional features available as free plugins including roleplay, downloading different personalities, and advanced settings
+
+  </Section>
+
+<Border className="my-8" />
+
+<Section id="solution">
+
+## Solution
+
+<AppSolution image='layla-ios.png' href={appData.url}>
+
+Layla is built using modern Android development practices with Kotlin and Jetpack Compose for the UI. The app implements MVVM architecture pattern and uses Room Database for local storage. Kotlin Coroutines handle asynchronous operations, ensuring smooth performance even when processing large language models locally.
+
+The app supports loading custom GGUF models and integrates Stable Diffusion for image generation, all running completely offline on the device.
+
+</AppSolution>
+
+</Section>
+
+<Border className="my-8" />
+
+<Section id="technologies">
+
+## Technologies
+
+<FadeInStagger className="flex gap-4 mt-6 flex-wrap" faster once>
+  {technologies.map((tech) => (
+    <FadeIn key={tech.name}>
+      <div className="mt-auto">
+        <Image
+          src={tech.image}
+          className="object-contain rounded-md m-auto"
+          alt=""
+          height={64}
+          width={64}
+          style={{
+            width: 64,
+            height: 64,
+          }}
+        />
+        <h4 className="text-sm font-semibold tracking-tight text-[#525df3] text-center bg-white rounded-full w-min px-2 m-2 mx-auto">{tech.name}</h4>
+      </div>
+    </FadeIn>
+  ))}
+</FadeInStagger>
+
+</Section>
+
+</Container>

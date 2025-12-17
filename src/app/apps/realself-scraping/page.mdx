@@ -1,0 +1,112 @@
+import { AppSolution, Border, Container, FadeIn, FadeInStagger, Section } from '@/components';
+import Image from 'next/image';
+import { realselfScraping } from '../../../../public/projects';
+
+export const appData = {
+  industry: 'Web Scraping & Automation',
+  title: 'RealSelf.com Scraper',
+  description: 'Advanced web scraping solution that bypasses PerimeterX and HSTS security measures to extract comprehensive data on cosmetic and medical professionals.',
+  image: realselfScraping,
+  date: '2024-12',
+  service: 'Data Scraping',
+  url: 'https://github.com/manabuaota/realSelf.com_scraping',
+  pathname: '/apps/realself-scraping',
+  framework: 'python',
+};
+
+export const sections = [
+  { index: 0, title: 'About', id: 'about' },
+  { index: 1, title: 'Challenge', id: 'challenge' },
+  { index: 2, title: 'Solution', id: 'solution' },
+  { index: 3, title: 'Technologies', id: 'technologies' },
+];
+
+export const metadata = {
+  title: `${appData.title}`,
+  description: appData.description,
+};
+
+export const technologies = [
+  { name: 'Python', image: '/logos/python-logo.png' },
+  { name: 'Selenium', image: '/logos/selenium-logo.svg' },
+  { name: 'BeautifulSoup', image: '/logos/beautifulsoup-logo.svg' },
+  { name: 'Scrapy', image: '/logos/scrapy-logo.svg' },
+];
+
+<Container>
+
+<Border className="my-8" />
+
+  <Section id="about">
+    ## About
+
+    This project successfully scrapes comprehensive data from RealSelf.com, a platform featuring profiles of cosmetic and medical professionals. The scraper collects detailed information including ratings, reviews, specialties, contact details, and years of experience for each professional listed on the platform.
+
+    The extracted data is available in both JSON and CSV formats, making it easy to analyze and integrate into other systems.
+
+  </Section>
+
+<Border className="my-8" />
+
+  <Section id="challenge">
+    ## Challenge
+
+    RealSelf.com employs advanced security measures to prevent unauthorized data scraping:
+
+    - **PerimeterX & HSTS**: These technologies use IP blocking and Press & Hold captchas to detect and block bots
+    - **IP Blocking**: Requests from suspicious IPs are automatically blocked
+    - **Press & Hold Captcha**: Advanced captcha mechanism that requires human interaction
+    - **Security Headers**: Multiple layers of security headers that need to be properly handled
+
+    Overcoming these barriers required sophisticated techniques including header manipulation, user-agent rotation, proxy usage, and custom bypass methods.
+
+  </Section>
+
+<Border className="my-8" />
+
+<Section id="solution">
+
+## Solution
+
+<AppSolution image="realself-scraping.png" href={appData.url}>
+
+The solution implements advanced bypassing techniques to successfully extract data:
+
+- **IP Rotation**: Using rotating proxies to distribute requests and avoid IP-based rate limiting
+- **Header Manipulation**: Custom headers and user-agent rotation to mimic regular web traffic patterns
+- **Captcha Bypass**: Successfully managed Press & Hold captchas by manipulating IPs and headers
+- **Data Extraction**: Comprehensive data collection including professional profiles, ratings, reviews, contact information, and more
+
+The scraper extracts structured data with fields such as professional ID, scores, location, specialties, ratings, review counts, years of experience, and detailed review content. All data is exported in both JSON and CSV formats for easy analysis and integration.
+
+</AppSolution>
+
+</Section>
+
+<Border className="my-8" />
+
+<Section id="technologies">
+
+## Technologies
+
+<FadeInStagger className="flex gap-4 mt-6 flex-wrap" faster once>
+  {technologies.map((tech) => (
+    <FadeIn key={tech.name}>
+      <div className="mt-auto">
+        <Image
+          src={tech.image}
+          className="object-contain rounded-md m-auto"
+          alt=""
+          height={64}
+          width={64}
+          style={{ width: 64, height: 64 }}
+        />
+        <h4 className="text-sm font-semibold tracking-tight text-[#525df3] text-center bg-white rounded-full w-min px-2 m-2 mx-auto">{tech.name}</h4>
+      </div>
+    </FadeIn>
+  ))}
+</FadeInStagger>
+
+</Section>
+
+</Container>
