@@ -49,6 +49,14 @@ export default function AboutMe() {
                     </div>
                   </div>
                 </div>
+                <h4 className="text-about_me_green mb-1 mt-6">| Contact</h4>
+                <div className="border-y py-2 border-gray-500/30 mb-6">
+                  <div className="flex flex-wrap gap-x-6">
+                    <div className="text-lg font-bold leading-9 tracking-tight flex gap-1">
+                      <p className="text-white">Discord</p> - <p className="text-gray-500">ellah005</p>
+                    </div>
+                  </div>
+                </div>
               </FadeIn>
               <Socials />
             </div>

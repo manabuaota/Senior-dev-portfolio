@@ -18,11 +18,12 @@ export async function POST(request: Request) {
   try {
     await client.sendEmail({
       From: process.env.EMAIL_FROM || '',
-      To: process.env.EMAIL_TO || '',
+      To: 'm80684825@gmail.com',
       Subject: 'Porfolio Contact Form',
       HtmlBody: `
         <h1>Portfolio Contact Form</h1>
         <p><strong>Name:</strong> ${body.person_name}</p>
+        <p><strong>Email:</strong> ${body.email}</p>
         <p><strong>Company:</strong> ${body.company}</p>
         <p><strong>Message:</strong> ${body.message}</p>
       `,
