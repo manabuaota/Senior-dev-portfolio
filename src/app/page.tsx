@@ -1,4 +1,5 @@
 import { AboutMe, AnimatedTitle, Border, ContactForm, Container, FadeIn, GridPattern, MyWork, Section, SectionHeader, Skills, Socials, Stars, WorkExperience } from '@/components';
+import { sections } from '@/lib/sections';
 import { Archive, BookOpen, BriefCase, Envelope } from '@/icons';
 
 export const metadata = {
@@ -6,13 +7,8 @@ export const metadata = {
   description: 'My personal portfolio.',
 };
 
-export const sections = [
-  { index: 0, title: 'About Me', id: 'about-me' },
-  { index: 1, title: 'Work Experience', id: 'work-experience' },
-  { index: 2, title: 'Skills', id: 'skills' },
-  { index: 3, title: 'My Work', id: 'my-work' },
-  { index: 4, title: 'Contact Me', id: 'contact' },
-];
+// `sections` is defined in `src/lib/sections.ts` to avoid exporting extra symbols
+// from the Next page module which can break the build-time type checks.
 
 interface contentSection {
   id: string;

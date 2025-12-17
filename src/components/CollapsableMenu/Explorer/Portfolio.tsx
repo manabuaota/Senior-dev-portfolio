@@ -85,7 +85,7 @@ const subSectionsIcons: { [key: string]: JSX.Element } = {
 
 export default function Portfolio({ allApps, allLeetcode }: { allApps: MDXEntry<AppType>[]; allLeetcode: MDXEntry<LeetcodeType>[] }) {
   const portafolio = useSelector(selectPortfolio);
-  const sections = useSelector(selectSections);
+  const sections = useSelector(selectSections) || [];
   const pathname = usePathname();
   const segments = useSelectedLayoutSegments();
   const expanded = useSelector(selectExpanded);
@@ -177,13 +177,14 @@ interface FileWrapperProps extends FileProps {
 }
 
 function File({ name, icon, url, indent, sections }: FileWrapperProps) {
+  const safeSections = sections || [];
   return (
     <>
-      <FileContent name={name} icon={icon} url={url} indent={indent} active={sections.length > 0} />
-      {sections.length > 0 && (
+      <FileContent name={name} icon={icon} url={url} indent={indent} active={safeSections.length > 0} />
+      {safeSections.length > 0 && (
         <div style={{ paddingLeft: indent * 16 + 22 }} className="flex flex-col ml-7 relative py-1">
           <FadeInStagger className="w-max" role="list">
-            {sections.map((section) => (
+            {safeSections.map((section) => (
               <FadeIn key={section.id}>
                 <FileSection id={section.id} title={section.title} url={url ? url : ''} />
               </FadeIn>

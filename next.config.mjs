@@ -16,11 +16,17 @@ const withMDX = nextMDX({
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   images: {
-    domains: ['images.unsplash.com', 'cdn.simpleicons.org'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'cdn.simpleicons.org' },
+    ],
   },
   experimental: {
     scrollRestoration: true,
   },
+  // Enable an explicit (empty) turbopack config so builds using Turbopack
+  // don't fail when a webpack-based plugin is present.
+  turbopack: {},
 };
 
 export default withMDX(nextConfig);

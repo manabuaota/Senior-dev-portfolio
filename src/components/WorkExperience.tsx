@@ -73,7 +73,7 @@ export default function WorkExperience() {
       </FadeIn>
       <FadeInStagger>
         {experience.map((item, index) => (
-          <WorkRole key={index} title={item.title} date={item.date} image={item.image}>
+          <WorkRole key={index} title={item.title} image={item.image}>
             {item.description.map((desc, index) => (
               <li key={index} className="py-1">
                 {desc}
@@ -86,7 +86,7 @@ export default function WorkExperience() {
   );
 }
 
-function WorkRole({ children, title, date, image }: { children: React.ReactNode; title: string; date?: string; image: { url: string; className: string; height: number; width: number } }) {
+function WorkRole({ children, title, image }: { children: React.ReactNode; title: string; image: { url: string; className: string; height: number; width: number } }) {
   return (
     <FadeIn className="flex group mt-8 first:mt-0 px-3">
       {/* <div className="hidden @lg:flex @lg:flex-col">
@@ -120,7 +120,7 @@ function WorkRole({ children, title, date, image }: { children: React.ReactNode;
           </div>
           <div>
             <p className="font-semibold text-work_experience_orange text-lg">{title}</p>
-            <p className="@lg:hidden mt-2 text-white text-sm">{date}</p>
+            {/* <p className="@lg:hidden mt-2 text-white text-sm">{date}</p> */}
           </div>
         </div>
         <ul className="list-disc pl-10">{children}</ul>

@@ -1,7 +1,20 @@
-import client from '@/config/postmark';
+let client: any = null;
+
+// Initialize Postmark client only if token is available (skip during build)
+if (process.env.POSTMARK_API_TOKEN) {
+  import('@/config/postmark').then((module) => {
+    client = module.default;
+  });
+}
 
 export async function POST(request: Request) {
   const body = await request.json();
+  
+  // Return error if Postmark is not configured
+  if (!client) {
+    return new Response('Postmark not configured', { status: 500 });
+  }
+  
   try {
     await client.sendEmail({
       From: process.env.EMAIL_FROM || '',

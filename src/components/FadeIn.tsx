@@ -14,7 +14,7 @@ interface ViewportOptions {
   amount?: 'some' | 'all' | number;
 }
 
-export function FadeIn({ variants, viewportProp, ...props }: React.ComponentPropsWithoutRef<typeof motion.div> & { variants?: Variants; viewportProp?: ViewportOptions }) {
+export function FadeIn({ variants, viewportProp, animate, ...props }: React.ComponentPropsWithoutRef<typeof motion.div> & { variants?: Variants; viewportProp?: ViewportOptions; animate?: any }) {
   let isInStaggerGroup = useContext(FadeInStaggerContext);
 
   return (
@@ -36,7 +36,9 @@ export function FadeIn({ variants, viewportProp, ...props }: React.ComponentProp
       transition={{ duration: 0.5 }}
       {...(isInStaggerGroup
         ? {
-            viewport: viewportProp || {},
+            // When in stagger group, don't use viewport - let parent control animation
+            // Only add viewport if explicitly provided
+            ...(viewportProp ? { viewport: viewportProp } : {}),
           }
         : {
             initial: 'hidden',
@@ -48,19 +50,29 @@ export function FadeIn({ variants, viewportProp, ...props }: React.ComponentProp
   );
 }
 
-export function FadeInStagger({ faster = false, once = false, ...props }: React.ComponentPropsWithoutRef<typeof motion.div> & { faster?: boolean; once?: boolean }) {
-  return (
-    <FadeInStaggerContext.Provider value={true}>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        {...(once
+export function FadeInStagger({ faster = false, once = false, animate, initial, ...props }: React.ComponentPropsWithoutRef<typeof motion.div> & { faster?: boolean; once?: boolean; animate?: any; initial?: string }) {
+  // If animate prop is provided, use it instead of whileInView
+  const animationProps = animate
+    ? {
+        animate,
+        initial: initial || 'hidden',
+      }
+    : {
+        initial: initial || 'hidden',
+        whileInView: 'visible',
+        ...(once
           ? {
               viewport: { ...viewport, once: true },
             }
           : {
               viewport,
-            })}
+            }),
+      };
+
+  return (
+    <FadeInStaggerContext.Provider value={true}>
+      <motion.div
+        {...animationProps}
         transition={{ staggerChildren: faster ? 0.09 : 0.2 }}
         {...props}
       />

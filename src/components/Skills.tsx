@@ -3,7 +3,7 @@ import { FadeIn, FadeInStagger } from '@/components';
 import clsx from 'clsx';
 import { useAnimationControls } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const skills = [
   { skill: 'Front', position: 'top', buttonClassNames: 'rounded-t-full', textClassNames: 'translate-x-0 translate-y-0', padding: 'px-4 py-2' },
@@ -369,26 +369,44 @@ const skillsTitles = {
 export default function Skills() {
   const [activeSkill, setActiveSkill] = useState('Languages');
   const controls = useAnimationControls();
+  
+  // Initialize animation to visible state on mount
+  useEffect(() => {
+    controls.set('visible');
+  }, [controls]);
 
-  const handleChangeSkill: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-    const skill = e.currentTarget.textContent;
+  const handleChangeSkill = (skill: string) => {
     if (skill === activeSkill) return;
-    if (skill) setActiveSkill(skill);
-    await controls.start('hidden');
-    await controls.start('visible');
+    
+    // Animate to hidden first
+    controls.start('hidden').then(() => {
+      // Update state after hidden animation completes
+      setActiveSkill(skill);
+      // Use requestAnimationFrame to ensure DOM has updated, then animate to visible
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          controls.start('visible');
+        });
+      });
+    });
   };
 
   return (
     <div className="@container">
-      <FadeInStagger animate={controls} className="relative z-10 grid grid-cols-3 @lg:grid-cols-4 mt-20 @2xl:grid-cols-5 @3xl:grid-cols-6 @4xl:grid-cols-8" faster>
+      <FadeInStagger 
+        animate={controls} 
+        initial="visible" 
+        className="relative z-10 grid grid-cols-3 @lg:grid-cols-4 mt-20 @2xl:grid-cols-5 @3xl:grid-cols-6 @4xl:grid-cols-8" 
+        faster
+      >
         <div className="row-start-4 col-span-3 h-[115px] flex items-center justify-center @2xl:col-start-4 @2xl:row-start-1 @3xl:col-start-4 @4xl:col-start-4 @4xl:col-span-5 @3xl:justify-start @2xl:h-[40px] @3xl:mt-auto">
           <h2 className="text-center text-3xl font-semibold @2xl:ml-[32px]">{skillsTitles[activeSkill]}</h2>
         </div>
         <div className="skills-picker w-[325px] m-[10px] h-[325px] col-span-3 row-span-3 place-self-center isolate relative">
           <div className="rounded-full absolute inset-0 w-full h-full grid grid-cols-3 grid-rows-3 gap-0 overflow-hidden">
-            {/* Top button - Front */}
+            {/* Top button - Languages */}
             <button 
-              onClick={handleChangeSkill} 
+              onClick={() => handleChangeSkill('Languages')} 
               className={clsx(
                 'skills-buttons col-span-3 row-start-1 rounded-t-full',
                 activeSkill === 'Languages' && 'skills-buttons-active'
@@ -397,13 +415,13 @@ export default function Skills() {
             >
               <p className="text-2xl text-white font-semibold tracking-wide flex items-center justify-center h-full relative">
                 Languages
-                <span className={clsx('transition-all duration-300 -z-10 bg-[#525df3] absolute bottom-0 left-0 right-0 w-full', activeSkill === 'Front' ? 'h-[18px]' : 'h-[2px]')}></span>
+                <span className={clsx('transition-all duration-300 -z-10 bg-[#525df3] absolute bottom-0 left-0 right-0 w-full', activeSkill === 'Languages' ? 'h-[18px]' : 'h-[2px]')}></span>
               </p>
             </button>
 
             {/* Left button - Mobile */}
             <button 
-              onClick={handleChangeSkill} 
+              onClick={() => handleChangeSkill('Mobile')} 
               className={clsx(
                 'skills-buttons col-start-1 row-start-2 rounded-1.5-full',
                 activeSkill === 'Mobile' && 'skills-buttons-active'
@@ -418,7 +436,7 @@ export default function Skills() {
 
             {/* Center button - Tools (Square) */}
             <button 
-              onClick={handleChangeSkill} 
+              onClick={() => handleChangeSkill('Tools')} 
               className={clsx(
                 'skills-buttons col-start-2 row-start-2 rounded-none',
                 activeSkill === 'Tools' && 'skills-buttons-active'
@@ -431,9 +449,9 @@ export default function Skills() {
               </p>
             </button>
 
-            {/* Right button - Languages */}
+            {/* Right button - Front */}
             <button 
-              onClick={handleChangeSkill} 
+              onClick={() => handleChangeSkill('Front')} 
               className={clsx(
                 'skills-buttons col-start-3 row-start-2 rounded-1.5-full',
                 activeSkill === 'Front' && 'skills-buttons-active'
@@ -442,13 +460,13 @@ export default function Skills() {
             >
               <p className="text-2xl text-white font-semibold tracking-wide flex items-center justify-center h-full relative">
                 Front
-                <span className={clsx('transition-all duration-300 -z-10 bg-[#525df3] absolute bottom-0 left-0 right-0 w-full', activeSkill === 'Languages' ? 'h-[18px]' : 'h-[2px]')}></span>
+                <span className={clsx('transition-all duration-300 -z-10 bg-[#525df3] absolute bottom-0 left-0 right-0 w-full', activeSkill === 'Front' ? 'h-[18px]' : 'h-[2px]')}></span>
               </p>
             </button>
 
             {/* Bottom button - Back */}
             <button 
-              onClick={handleChangeSkill} 
+              onClick={() => handleChangeSkill('Back')} 
               className={clsx(
                 'skills-buttons col-span-3 row-start-3 rounded-b-full',
                 activeSkill === 'Back' && 'skills-buttons-active'

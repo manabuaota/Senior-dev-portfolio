@@ -39,7 +39,7 @@ export default function ActivityBar({ sections, allApps, allLeetcode }: { sectio
   const pathname = usePathname();
 
   useEffect(() => {
-    dispatch(sectionSlice.actions.setSections({ sections: sections[pathname] }));
+    dispatch(sectionSlice.actions.setSections({ sections: sections[pathname] || [] }));
   }, [pathname, dispatch, sections]);
 
   return (

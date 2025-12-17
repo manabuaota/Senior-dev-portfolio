@@ -28,21 +28,48 @@ export const sectionSlice = createSlice({
   reducers: {
     setSections: (state, action: PayloadAction<{ sections: Section[] }>) => {
       return {
-        sections: action.payload.sections as Section[],
-        sectionsOrder: state.sectionsOrder,
-        visible: state.visible,
+        sections: (action.payload.sections || []) as Section[],
+        sectionsOrder: state.sectionsOrder || [],
+        visible: state.visible || {},
       };
     },
     resetVisible: (state) => {
       return {
-        sections: state.sections,
+        sections: state.sections || [],
         sectionsOrder: [],
         visible: {},
       };
     },
     setVisible: (state, action: PayloadAction<{ key: string }>) => {
-      let item = current(state.sections).find((val) => val.id === action.payload.key) as Section;
-      let newArr = [...current(state.sectionsOrder)] as Section[];
+      const sections = state.sections || [];
+      const sectionsOrder = state.sectionsOrder || [];
+      
+      if (!sections || sections.length === 0) {
+        return {
+          sections: sections,
+          sectionsOrder: sectionsOrder,
+          visible: {
+            ...(state.visible || {}),
+            [action.payload.key]: true,
+          },
+        };
+      }
+
+      const currentSections = current(sections);
+      const item = currentSections.find((val) => val.id === action.payload.key) as Section;
+      
+      if (!item) {
+        return {
+          sections: sections,
+          sectionsOrder: sectionsOrder,
+          visible: {
+            ...(state.visible || {}),
+            [action.payload.key]: true,
+          },
+        };
+      }
+
+      let newArr = [...current(sectionsOrder)] as Section[];
       if (newArr.length === 0) {
         newArr.push(item);
       } else if (newArr[0].index > item.index) {
@@ -56,26 +83,27 @@ export const sectionSlice = createSlice({
         newArr.splice(i, 0, item);
       }
       return {
-        sections: state.sections,
+        sections: sections,
         sectionsOrder: newArr,
         visible: {
-          ...state.visible,
+          ...(state.visible || {}),
           [action.payload.key]: true,
         },
       };
     },
     setHidden: (state, action: PayloadAction<{ key: string }>) => {
-      let newArr = [...current(state.sectionsOrder)] as Section[];
+      const sectionsOrder = state.sectionsOrder || [];
+      let newArr = [...current(sectionsOrder)] as Section[];
       let itemIndex = newArr.findIndex((val) => val.id === action.payload.key);
       //Insert before items with lower index value in Section[]
-      if (itemIndex !== undefined) {
+      if (itemIndex !== -1) {
         newArr.splice(itemIndex, 1);
       }
       return {
-        sections: state.sections,
+        sections: state.sections || [],
         sectionsOrder: newArr,
         visible: {
-          ...state.visible,
+          ...(state.visible || {}),
           [action.payload.key]: false,
         },
       };
