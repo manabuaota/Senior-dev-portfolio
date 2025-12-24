@@ -53,7 +53,7 @@ export default function AboutMe() {
                 <div className="border-y py-2 border-gray-500/30 mb-6">
                   <div className="flex flex-wrap gap-x-6">
                     <div className="text-lg font-bold leading-9 tracking-tight flex gap-1">
-                      <p className="text-white">Discord</p> - <p className="text-gray-500">ellah005</p>
+                      <p className="text-white">Discord</p> - <p className="text-gray-500">manbuaota</p>
                     </div>
                   </div>
                 </div>
